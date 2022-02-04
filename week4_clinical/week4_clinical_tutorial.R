@@ -113,7 +113,7 @@ clinic$days_to_death = ifelse(!is.na(clinic$days_to_death), clinic$days_to_last_
 
 # Exercise 3.2
 # create the death_event column here
-death_event = ifelse(clinic$vital_status == "Alive", 0, 1)
+clinic$death_event = ifelse(clinic$vital_status == "Alive", 0, 1)
 
 # We initialize a 'survival' object first, which contains the data we need.
 surv_object <- Surv(time = clinic$days_to_death, 
@@ -139,10 +139,12 @@ p
 
 # save the plot as a png
 # if you want to present the data, change the strata labels!
-ggsave("../week4_clinical/kmplot_by_race.png", plot = p, width = 12, height = 9)
+ggsave("/Users/chaimengdi/Desktop/QBIO/QBIO490/qbio_data_analysis_mengdi/week4_clinical/kmplot_by_race.png", plot = p, width = 12, height = 9)
 
 # Exercise 3.3
-# have some problems with exercise 3.1 and 3.2, so cannot draw the plot 
+# it is decreasing and similar to stairs
+# Question: why at some points, the survival probability decreases dramatiacally, whereas at some points is not?
+# I think it should add the units for x-axis and y-axis.
 
 # Exercise 4.1
 # change the file path! make sure it's in your week4 folder
