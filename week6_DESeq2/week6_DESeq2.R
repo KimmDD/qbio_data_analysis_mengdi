@@ -25,6 +25,7 @@ bool_age_na
 # 2. Make a copy of the clinical and counts data; fill in here
 patients_data = colData(sum_exp)  # contains the clinical data
 counts = assays(sum_exp)$"HTSeq - Counts" # contains the counts data
+counts
 # 3. Convert counts into a dataframe; fill in here
 # 4. Remove the NA patients from both patients_data and counts
 patients_data = patients_data[!bool_age_na, ]
@@ -109,3 +110,31 @@ genes_smaller_padj = results[results$padj > padj_threshold, ]
 genes_smaller_padj 
 # Subset the results data frame, selecting the genes that satisfy BOTH criteria
 subset.data.frame(results, genes_greater_log2, genes_smaller_padj)
+
+
+# Exercise 2.5
+fc_threshold = 2  # set a threshold of at least a 2 fold increase (double)
+p_threshold = 0.05  # set a threshold of adjusted p-value being <= 0.05
+
+# fill in your plot code here!
+  # be sure to relabel the axes!
+  # note: you can perform the log transformation directly in the plot function
+  plot(x = results$log2FoldChange,
+       y = -log10(results$pvalue),
+       xlab = "fold change ratio (young over old)", # be sure the specify that it's young over old!
+       ylab = "p-value",
+       pch = 20) # smaller solid circles
+
+# these lines put the lines on the plot
+# abline() plots straight lines on an R plot.
+# v argument is for a vertical line, h argument is for a horizontal line, col argument is color
+abline(v=c(-log2(fc_threshold), log2(fc_threshold)), h= c(-log10(p_threshold)), col="green")
+
+
+
+# Exercise 2.6
+# write CSV to your week6 folder
+# We're not putting it into analysis_data since you actually generated the data
+write.csv(x = results,
+          file = "/Users/chaimengdi/Desktop/QBIO/QBIO490/qbio_data_analysis_mengdi/week6_DESeq2/results.csv",
+          row.names = FALSE)
